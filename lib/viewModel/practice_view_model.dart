@@ -4,6 +4,9 @@ class PracticeViewModel with ChangeNotifier {
   int _basic = 1;
   int _poomsae = 1;
 
+  int get basic => _basic;
+  int get poomsae => _poomsae;
+
   final List<bool> _attendStatus = [
     true,
     false,
@@ -13,7 +16,6 @@ class PracticeViewModel with ChangeNotifier {
     false,
     false,
   ];
-
   final List<bool> _basicClearStatus = [
     true,
     false,
@@ -25,7 +27,6 @@ class PracticeViewModel with ChangeNotifier {
     false,
     false
   ];
-
   final List<bool> _poomsaeClearStatus = [
     true,
     false,
@@ -38,12 +39,12 @@ class PracticeViewModel with ChangeNotifier {
     false
   ];
 
-  int get basic => _basic;
-  int get poomsae => _poomsae;
-
   List<bool> get basicClearStatus => _basicClearStatus;
   List<bool> get poomsaeClearStatus => _poomsaeClearStatus;
   List<bool> get attendStatus => _attendStatus;
+
+  final List<Badge> _badgeList = [];
+  List<Badge> get badgeList => _badgeList;
 
   void selectBasic(int i) {
     _basic = i;

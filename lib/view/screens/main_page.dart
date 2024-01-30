@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:taek_it_easy/view/screens/get_badge_page.dart';
 import 'package:taek_it_easy/view/widgets/box_attend.dart';
 import 'package:taek_it_easy/viewModel/practice_view_model.dart';
 
@@ -98,7 +100,7 @@ class MainPage extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -140,11 +142,75 @@ class MainPage extends StatelessWidget {
                             }),
                         ],
                       ),
-                    )
+                    ),
+                    //리워드 (달성된 뱃지 개수)
+                    Consumer<PracticeViewModel>(
+                        builder: (_, PracticeViewModel viewModel, __) {
+                      return Badge(
+                        badgeAchieve: viewModel.badgeList.length,
+                      );
+                    }),
                   ],
                 )
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Badge extends StatelessWidget {
+  final int badgeAchieve;
+
+  const Badge({super.key, required this.badgeAchieve});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: 0,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const GetBadgePage()),
+          );
+        },
+        child: Container(
+          margin: const EdgeInsets.all(16),
+          child: Stack(
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                decoration: ShapeDecoration(
+                  color: const Color(0x2BCFF1E2).withOpacity(0.5),
+                  shape: const OvalBorder(),
+                  shadows: const [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 4,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Image.asset('assets/images/medal.png'),
+              ),
+              CircularStepProgressIndicator(
+                totalSteps: 9,
+                currentStep: badgeAchieve,
+                stepSize: 5,
+                selectedColor: const Color(0xFF618273),
+                unselectedColor: Colors.transparent,
+                padding: 0,
+                width: 103,
+                height: 103,
+                selectedStepSize: 5,
+                roundedCap: (_, __) => true,
+              ),
+            ],
           ),
         ),
       ),
