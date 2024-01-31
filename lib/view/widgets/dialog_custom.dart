@@ -43,35 +43,24 @@ class CustomDialog extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            Row(
+            Column(
               children: [
-                Chapterbox(chnumber: "1", clearstatus: clearStatus[0]),
-                Chapterbox(chnumber: "2", clearstatus: clearStatus[1]),
-                Chapterbox(chnumber: "3", clearstatus: clearStatus[2]),
+                for (int i = 0; i < 9; i += 3)
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          for (int j = i; j < i + 3; j++)
+                            Chapterbox(
+                                chnumber: "${j + 1}",
+                                clearstatus: clearStatus[j]),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+                    ],
+                  ),
+                const SizedBox(height: 30),
               ],
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Row(
-              children: [
-                Chapterbox(chnumber: "4", clearstatus: clearStatus[3]),
-                Chapterbox(chnumber: "5", clearstatus: clearStatus[4]),
-                Chapterbox(chnumber: "6", clearstatus: clearStatus[5]),
-              ],
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Row(
-              children: [
-                Chapterbox(chnumber: "7", clearstatus: clearStatus[6]),
-                Chapterbox(chnumber: "8", clearstatus: clearStatus[7]),
-                Chapterbox(chnumber: "9", clearstatus: clearStatus[8]),
-              ],
-            ),
-            const SizedBox(
-              height: 30,
             ),
             GestureDetector(
               onTap: () {
