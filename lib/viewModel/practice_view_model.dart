@@ -1,6 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class PracticeViewModel with ChangeNotifier {
+  bool _isOpenCalendar = false;
+
+  bool get isOpenCalendar => _isOpenCalendar;
+
   int _basic = 1;
   int _poomsae = 1;
 
@@ -10,7 +16,7 @@ class PracticeViewModel with ChangeNotifier {
   final List<bool> _attendStatus = [
     true,
     false,
-    false,
+    true,
     false,
     false,
     false,
@@ -45,6 +51,10 @@ class PracticeViewModel with ChangeNotifier {
 
   final List<Badge> _badgeList = [];
   List<Badge> get badgeList => _badgeList;
+
+  void openCalendar() {
+    _isOpenCalendar = true;
+  }
 
   void selectBasic(int i) {
     _basic = i;
