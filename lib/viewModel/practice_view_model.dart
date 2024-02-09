@@ -22,6 +22,10 @@ class PracticeViewModel with ChangeNotifier {
     false,
     false,
   ];
+
+  final String _basicTitle = "Basic: Jang 1";
+  String get basicTitle => _basicTitle;
+
   final List<bool> _basicClearStatus = [
     true,
     false,

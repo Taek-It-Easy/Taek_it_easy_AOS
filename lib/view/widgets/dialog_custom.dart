@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:taek_it_easy/view/screens/main_page.dart';
 
 class CustomDialog extends StatelessWidget {
   final String title;
