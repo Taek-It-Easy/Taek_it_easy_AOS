@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:taek_it_easy/view/screens/main_page.dart';
 import 'package:taek_it_easy/view/widgets/button_quit.dart';
+import 'package:taek_it_easy/viewModel/user_provider.dart';
 
 // ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
@@ -8,6 +10,9 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    var userData = userProvider.postUser();
+
     return SafeArea(
       child: Scaffold(
         body: Stack(
