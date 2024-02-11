@@ -119,10 +119,12 @@ class LoginPage extends StatelessWidget {
             )
           ],
         ),
+        /*
         bottomNavigationBar: const Padding(
           padding: EdgeInsets.all(20.0),
           child: QuitButton(),
         ),
+        */
       ),
     );
   }
