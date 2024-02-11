@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:taek_it_easy/view/screens/main_page.dart';
 import 'package:taek_it_easy/view/widgets/button_quit.dart';
-import 'package:taek_it_easy/viewModel/user_view_model.dart';
 
 // ignore: must_be_immutable
 class LoginPage extends StatelessWidget {

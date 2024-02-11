@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taek_it_easy/view/screens/login_page.dart';
-import 'package:taek_it_easy/view/screens/main_page.dart';
 import 'package:taek_it_easy/viewModel/practice_view_model.dart';
 import 'package:taek_it_easy/viewModel/user_view_model.dart';
 
@@ -19,7 +18,7 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PracticeViewModel()),
         ChangeNotifierProvider(create: (_) => UserViewModel())
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: Scaffold(
           body: Center(
             child: MaterialApp(home: LoginPage()),
