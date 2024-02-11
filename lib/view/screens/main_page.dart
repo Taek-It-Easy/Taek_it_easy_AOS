@@ -1,13 +1,11 @@
 // ignore_for_file: unused_field, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:taek_it_easy/designSystem/color_system.dart';
 import 'package:taek_it_easy/view/screens/get_badge_page.dart';
 import 'package:taek_it_easy/view/widgets/box_attend.dart';
-import 'package:taek_it_easy/view/widgets/dialog_calendar.dart';
 import 'package:taek_it_easy/view/widgets/dialog_custom.dart';
 import 'package:taek_it_easy/viewModel/practice_view_model.dart';
 
