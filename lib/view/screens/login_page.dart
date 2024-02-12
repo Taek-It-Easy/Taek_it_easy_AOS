@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taek_it_easy/view/screens/main_page.dart';
-import 'package:taek_it_easy/view/widgets/button_quit.dart';
 import 'package:taek_it_easy/viewModel/user_provider.dart';
 
 // ignore: must_be_immutable
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
-    var userData = userProvider.postUser();
+  State<LoginPage> createState() => _LoginPageState();
+}
 
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _controller = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -82,6 +84,7 @@ class LoginPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold, fontSize: 20),
                           )),
                       TextField(
+                        controller: _controller,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: 'Age',
@@ -99,7 +102,9 @@ class LoginPage extends StatelessWidget {
                       const SizedBox(height: 20.0),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
+                          int intValue = int.tryParse(_controller.text) ?? 0;
+                          UserProvider().postUser(intValue);
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(builder: (context) => MainPage()),
                           );

@@ -2,27 +2,26 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:taek_it_easy/constants.dart';
 import 'package:taek_it_easy/data/model/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:taek_it_easy/prefs.dart';
 
-class UserProvider with ChangeNotifier {
+class UserProvider {
   late User _user;
   User get user => _user;
 
-  Future<void> postUser() async {
+  Future<void> postUser(int age) async {
     String deviceNum = await getModileId();
 
     Uri endPoint = Uri.parse("${Constants.baseUrl}/app/users/sign-up");
     final response = await http.post(endPoint,
         headers: Constants.headers,
-        body: jsonEncode(User(deviceNum: deviceNum, userAge: 10)));
+        body: jsonEncode(User(deviceNum: deviceNum, userAge: age)));
+    print("deviceNum : $deviceNum / age : $age");
     try {
       int? userIdx = jsonDecode(response.body)['result']['userIdx'];
-      print("$userIdx in Provider");
       if (userIdx != null) {
         Prefs.setInt("userIdx", userIdx);
       }
