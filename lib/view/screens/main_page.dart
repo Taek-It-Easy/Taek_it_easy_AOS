@@ -7,18 +7,20 @@ import 'package:taek_it_easy/designSystem/color_system.dart';
 import 'package:taek_it_easy/view/screens/get_badge_page.dart';
 import 'package:taek_it_easy/view/widgets/box_attend.dart';
 import 'package:taek_it_easy/view/widgets/dialog_custom.dart';
-import 'package:taek_it_easy/viewModel/practice_view_model.dart';
+import 'package:taek_it_easy/viewModel/practice_provider.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({super.key});
 
-  late PracticeViewModel _practiceViewModel;
+  late PracticeProvider _practiceProvider;
 
   @override
   Widget build(BuildContext context) {
     final dayName = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
-    _practiceViewModel = Provider.of<PracticeViewModel>(context, listen: false);
+    _practiceProvider = Provider.of<PracticeProvider>(context, listen: false);
+    _practiceProvider.getPoseList();
+    _practiceProvider.getUserContent();
 
     return MaterialApp(
       home: Scaffold(
@@ -74,8 +76,8 @@ class MainPage extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(width: 6),
-                                  Consumer<PracticeViewModel>(builder:
-                                      (_, PracticeViewModel viewModel, __) {
+                                  Consumer<PracticeProvider>(builder:
+                                      (_, PracticeProvider viewModel, __) {
                                     return Text(
                                       viewModel.attendStatus
                                           .where((element) => element == true)
@@ -114,8 +116,8 @@ class MainPage extends StatelessWidget {
                   AttendSection(dayName: dayName),
 
                   //리워드 (달성된 뱃지 개수)
-                  Consumer<PracticeViewModel>(
-                      builder: (_, PracticeViewModel viewModel, __) {
+                  Consumer<PracticeProvider>(
+                      builder: (_, PracticeProvider viewModel, __) {
                     return Badge(
                       badgeAchieve: viewModel.badgeList.length,
                     );
@@ -134,8 +136,8 @@ class MainPage extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return Consumer<PracticeViewModel>(builder:
-                                  (context, PracticeViewModel viewModel, _) {
+                              return Consumer<PracticeProvider>(builder:
+                                  (context, PracticeProvider viewModel, _) {
                                 return CustomDialog(
                                     title: viewModel.basicTitle,
                                     clearStatus: viewModel.basicClearStatus);
@@ -201,8 +203,8 @@ class MainPage extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return Consumer<PracticeViewModel>(builder:
-                                  (context, PracticeViewModel viewModel, _) {
+                              return Consumer<PracticeProvider>(builder:
+                                  (context, PracticeProvider viewModel, _) {
                                 return CustomDialog(
                                     title: viewModel.basicTitle,
                                     clearStatus: viewModel.basicClearStatus);
@@ -396,8 +398,8 @@ class AttendSection extends StatelessWidget {
       child: Row(
         children: [
           for (int i = 0; i < dayName.length; i++)
-            Consumer<PracticeViewModel>(
-                builder: (_, PracticeViewModel viewModel, __) {
+            Consumer<PracticeProvider>(
+                builder: (_, PracticeProvider viewModel, __) {
               return AttendBox(
                 dayName: dayName[i],
                 attendStatus: viewModel.attendStatus[i],

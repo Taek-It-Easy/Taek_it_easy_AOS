@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:taek_it_easy/view/screens/practice_page.dart';
 
 class CustomDialog extends StatelessWidget {
   final String title;
@@ -102,13 +102,10 @@ class Chapterbox extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (clearstatus) {
-            // 특정 페이지로 이동하거나 다른 작업 수행
-            /*
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const PracticeBasic()),
+              MaterialPageRoute(builder: (context) => PracticePage()),
             );
-            */
           }
         },
         child: Container(

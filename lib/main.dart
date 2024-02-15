@@ -3,8 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:taek_it_easy/prefs.dart';
 import 'package:taek_it_easy/view/screens/login_page.dart';
 import 'package:taek_it_easy/view/screens/main_page.dart';
-import 'package:taek_it_easy/viewModel/practice_view_model.dart';
-import 'package:taek_it_easy/viewModel/user_provider.dart';
+import 'package:taek_it_easy/viewModel/practice_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +18,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => PracticeViewModel()),
+          ChangeNotifierProvider(create: (_) => PracticeProvider()),
         ],
         child: MaterialApp(
           home: FutureBuilder<bool>(
@@ -39,6 +38,7 @@ class MainApp extends StatelessWidget {
         ));
   }
 
+  // 휴대폰에 유저 정보가 있으면 true
   Future<bool> checkUserLoggedIn() async {
     int? userIdx = Prefs.getInt('userIdx');
     print('userIdx : $userIdx');

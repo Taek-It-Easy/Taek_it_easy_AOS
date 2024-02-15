@@ -23,21 +23,23 @@ class CustomButton extends StatelessWidget {
           color: color,
         ),
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.5,
-          maxHeight:
-              MediaQuery.of(context).size.height * 0.11, // 최대 너비를 화면 폭의 80%로 제한
+          maxWidth:
+              MediaQuery.of(context).size.width * 0.5, //최대 너비를 화면 폭의 80%로 제한
         ),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(label,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w600)),
-              Icon(icon, color: Colors.white, size: 40),
-            ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(label,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600)),
+                Icon(icon, color: Colors.white, size: 40),
+              ],
+            ),
           ),
         ),
       ),
