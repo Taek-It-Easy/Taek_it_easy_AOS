@@ -11,7 +11,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _ageController = TextEditingController();
-  final String _age = '';
 
   @override
   void dispose() {

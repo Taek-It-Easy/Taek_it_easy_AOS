@@ -28,7 +28,7 @@ class UserProvider {
               .result
               .userIdx;
       print("값 : $userIdx");
-      //Prefs.setInt("userIdx", userIdx);
+      Prefs.setInt("userIdx", userIdx);
     } else {
       //오류
     }
