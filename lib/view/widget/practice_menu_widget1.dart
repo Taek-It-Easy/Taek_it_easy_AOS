@@ -1,19 +1,27 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:taek_it_easy/designSystem/font_system.dart';
+import 'package:taek_it_easy/provider/main_provider.dart';
+import 'package:taek_it_easy/view/dialog/menu_dialog.dart';
 
 class PracticeMenuWidget1 extends StatelessWidget {
-  const PracticeMenuWidget1({
-    super.key,
-  });
+  const PracticeMenuWidget1({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<MainProvider>(context);
+
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        await provider.getContent();
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            return const Dialog();
+            return const MenuDialog(
+              title: "Practice Pose",
+            );
           },
         );
       },

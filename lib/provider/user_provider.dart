@@ -22,12 +22,11 @@ class UserProvider {
 
     if (response.statusCode >= 200 && response.statusCode < 400) {
       var result = utf8.decode(response.bodyBytes);
-      print("로그인 Decode : ${jsonDecode(result)}");
       int? userIdx =
           Response.fromJson(jsonDecode(result), (json) => User.fromJson(json))
               .result
               .userIdx;
-      print("값 : $userIdx");
+      //print("값 : $userIdx");
       Prefs.setInt("userIdx", userIdx);
     } else {
       //오류

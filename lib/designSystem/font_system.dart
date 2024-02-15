@@ -39,4 +39,27 @@ class Fonts {
     fontWeight: FontWeight.w600,
     letterSpacing: -0.50,
   );
+
+  static const chapterClear = TextStyle(
+    color: Colors.white,
+    fontSize: 60,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w600,
+    letterSpacing: 10,
+  );
+
+  static const chapterNoneClear = TextStyle(
+    color: Color(0xFF868686),
+    fontSize: 60,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w600,
+    letterSpacing: 10,
+  );
+
+  static const dialogTitle = TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.w800,
+    color: Colors.white,
+    letterSpacing: 2,
+  );
 }
