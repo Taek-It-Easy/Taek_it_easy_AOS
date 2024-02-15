@@ -23,7 +23,7 @@ class MainProvider with ChangeNotifier {
   int get badgeAchieve => _badgeAchieve;
 
   //동작 연습 (동작 리스트, 동작 달성 인덱스)
-  int _userPoseIdx = 0;
+  int _userPoseIdx = 3;
   int get userPoseIdx => _userPoseIdx; //유저의 진행 상황(기본 동작)
 
   int _userPoomsaeIdx = 0;
