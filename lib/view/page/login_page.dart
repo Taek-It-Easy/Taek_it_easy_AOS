@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taek_it_easy/designSystem/font_system.dart';
+import 'package:taek_it_easy/provider/user_provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -98,7 +99,10 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(height: 20.0),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              UserProvider().postUser(
+                                  int.tryParse(_ageController.text) ?? 0);
+                            },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.black54),

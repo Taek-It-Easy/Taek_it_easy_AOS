@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taek_it_easy/old/view/screens/main_page.dart';
-import 'package:taek_it_easy/old/viewModel/user_provider.dart';
 
 // ignore: must_be_immutable
 class LoginPage extends StatefulWidget {
@@ -103,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                       ElevatedButton(
                         onPressed: () {
                           int intValue = int.tryParse(_controller.text) ?? 0;
-                          UserProvider().postUser(intValue);
+
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(builder: (context) => MainPage()),
