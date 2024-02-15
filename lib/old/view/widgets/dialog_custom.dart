@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taek_it_easy/view/screens/practice_page.dart';
+import 'package:taek_it_easy/old/view/screens/practice_page.dart';
 
 class CustomDialog extends StatelessWidget {
   final String title;

@@ -1,10 +1,12 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:taek_it_easy/view/widgets/button_custom.dart';
-import 'package:taek_it_easy/view/widgets/button_quit.dart';
-import 'package:taek_it_easy/viewModel/practice_provider.dart';
+import 'package:taek_it_easy/old/view/widgets/button_custom.dart';
+import 'package:taek_it_easy/old/view/widgets/button_quit.dart';
+import 'package:taek_it_easy/old/view/widgets/video_widget.dart';
+import 'package:taek_it_easy/old/viewModel/practice_provider.dart';
 import '../widgets/text_sub_title_widget.dart';
 import '../widgets/text_title_widget.dart';
 
@@ -33,42 +35,45 @@ class PracticePage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.only(top: 50),
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Color(0xFF8DB9A6), Colors.white],
-                        ),
-                        border: Border.all(
-                            color: const Color(0xFF436355), width: 2),
-                        borderRadius: BorderRadius.circular(50),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 4,
-                            offset: Offset(1, 4),
-                            spreadRadius: 1,
-                          )
-                        ],
+              Container(
+                  margin: const EdgeInsets.only(top: 50),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0xFF8DB9A6), Colors.white],
+                    ),
+                    border:
+                        Border.all(color: const Color(0xFF436355), width: 2),
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color(0x3F000000),
+                        blurRadius: 4,
+                        offset: Offset(1, 4),
+                        spreadRadius: 1,
+                      )
+                    ],
+                  ),
+                  child: const Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: TextTitleWidget(title: "basic"),
                       ),
-                      child: const Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            child: TextTitleWidget(title: "basic"),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 24),
-                            child: Center(
-                              child: TextSubTitleWidget(title: "Action 1"),
-                            ),
-                          )
-                        ],
-                      ))),
+                      VideoWidget(
+                          videoUrl:
+                              "https://storage.googleapis.com/taek_it_easy_bucket/Taekwondo_1%2C2%2C3%EC%9E%A5_%EA%B8%B0%EB%B3%B8%EB%8F%99%EC%9E%91_%ED%8E%B8%EC%A7%91%EB%B3%B8/%EB%8F%99%EC%98%81%EC%83%81/%ED%83%9C%EA%B7%B91%EC%9E%A5_%EC%A4%80%EB%B9%84%EC%9E%90%EC%84%B8%20-%20Trim.MP4"),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24),
+                        child: Center(
+                          child: TextSubTitleWidget(title: "Action 1"),
+                        ),
+                      )
+                    ],
+                  )),
               const SizedBox(
                 height: 16,
               ),

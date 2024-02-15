@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:taek_it_easy/constants.dart';
-import 'package:taek_it_easy/data/model/pose_item.dart';
+import 'package:taek_it_easy/old/data/model/pose_item.dart';
 import 'package:http/http.dart' as http;
 import 'package:taek_it_easy/prefs.dart';
 

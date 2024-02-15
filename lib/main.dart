@@ -1,12 +1,16 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taek_it_easy/prefs.dart';
-import 'package:taek_it_easy/view/screens/login_page.dart';
-import 'package:taek_it_easy/view/screens/main_page.dart';
-import 'package:taek_it_easy/viewModel/practice_provider.dart';
+import 'package:taek_it_easy/old/view/screens/login_page.dart';
+import 'package:taek_it_easy/old/view/screens/main_page.dart';
+import 'package:taek_it_easy/old/viewModel/practice_provider.dart';
 
+List<CameraDescription> cameras = [];
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  cameras = await availableCameras();
   await Prefs.init();
   runApp(const MainApp());
 }

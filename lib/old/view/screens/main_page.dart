@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:taek_it_easy/designSystem/color_system.dart';
-import 'package:taek_it_easy/view/screens/get_badge_page.dart';
-import 'package:taek_it_easy/view/widgets/box_attend.dart';
-import 'package:taek_it_easy/view/widgets/dialog_custom.dart';
-import 'package:taek_it_easy/viewModel/practice_provider.dart';
+import 'package:taek_it_easy/old/view/screens/get_badge_page.dart';
+import 'package:taek_it_easy/old/view/widgets/box_attend.dart';
+import 'package:taek_it_easy/old/view/widgets/dialog_custom.dart';
+import 'package:taek_it_easy/old/viewModel/practice_provider.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({super.key});

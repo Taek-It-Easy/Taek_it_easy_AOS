@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:taek_it_easy/constants.dart';
-import 'package:taek_it_easy/data/model/user.dart';
+import 'package:taek_it_easy/old/data/model/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:taek_it_easy/prefs.dart';
 
