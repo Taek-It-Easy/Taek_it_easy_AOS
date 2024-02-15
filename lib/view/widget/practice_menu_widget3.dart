@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taek_it_easy/designSystem/font_system.dart';
 
 class PracticeMenuWidget3 extends StatelessWidget {
   const PracticeMenuWidget3({
@@ -47,17 +48,8 @@ class PracticeMenuWidget3 extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.all(25),
-                  child: const Text(
-                    'Test Poomsae',
-                    style: TextStyle(
-                      color: Color(0xFF111111),
-                      fontSize: 30,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: -0.50,
-                    ),
-                  ),
+                  margin: const EdgeInsets.fromLTRB(25, 0, 0, 0),
+                  child: const Text('Test Poomsae', style: Fonts.mainMenuTitle),
                 ),
               ],
             ),

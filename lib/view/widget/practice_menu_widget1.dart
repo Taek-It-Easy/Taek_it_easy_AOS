@@ -10,13 +10,12 @@ class PracticeMenuWidget1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // showDialog(
-        //   context: context,
-        //   builder: (BuildContext context) {
-        //     return ;
-
-        //   },
-        // );
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const Dialog();
+          },
+        );
       },
       child: Stack(
         children: [
@@ -50,7 +49,7 @@ class PracticeMenuWidget1 extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.all(25),
+                  margin: const EdgeInsets.fromLTRB(25, 0, 0, 0),
                   child:
                       const Text('Practice Basic', style: Fonts.mainMenuTitle),
                 ),
