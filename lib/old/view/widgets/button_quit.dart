@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../screens/main_page.dart';
-
 class QuitButton extends StatelessWidget {
   const QuitButton({super.key});
 
@@ -9,10 +7,10 @@ class QuitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pop(
-          context,
-          MaterialPageRoute(builder: (context) => MainPage()),
-        );
+        // Navigator.pop(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => MainPage()),
+        // );
       },
       child: Container(
         height: 60,

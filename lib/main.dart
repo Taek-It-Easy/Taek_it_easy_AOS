@@ -2,7 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taek_it_easy/prefs.dart';
-import 'package:taek_it_easy/old/viewModel/practice_provider.dart';
+import 'package:taek_it_easy/provider/main_provider.dart';
 import 'package:taek_it_easy/view/page/login_page.dart';
 import 'package:taek_it_easy/view/page/main_page.dart';
 
@@ -22,7 +22,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => PracticeProvider()),
+          ChangeNotifierProvider(create: (_) => MainProvider()),
         ],
         child: MaterialApp(
           home: FutureBuilder<bool>(
@@ -32,7 +32,7 @@ class MainApp extends StatelessWidget {
                 return const CircularProgressIndicator();
               } else {
                 if (snapshot.hasData && snapshot.data == true) {
-                  return const MainPage();
+                  return MainPage();
                 } else {
                   return const LoginPage();
                 }
