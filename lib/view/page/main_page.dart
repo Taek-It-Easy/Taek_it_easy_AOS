@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:taek_it_easy/designSystem/color_system.dart';
 import 'package:taek_it_easy/designSystem/font_system.dart';

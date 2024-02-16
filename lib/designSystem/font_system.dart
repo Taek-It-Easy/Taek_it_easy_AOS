@@ -62,4 +62,12 @@ class Fonts {
     color: Colors.white,
     letterSpacing: 2,
   );
+
+  static const buttonText =
+      TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w600);
+
+  static const videoSubText = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.w600,
+  );
 }

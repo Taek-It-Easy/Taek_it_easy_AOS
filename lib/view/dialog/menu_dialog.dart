@@ -6,6 +6,8 @@ import 'package:taek_it_easy/data/practice_status.dart';
 import 'package:taek_it_easy/designSystem/font_system.dart';
 import 'package:taek_it_easy/provider/main_provider.dart';
 
+import '../widget/chapter_box_widget.dart';
+
 class MenuDialog extends StatelessWidget {
   final String title;
   const MenuDialog({super.key, required this.title});
@@ -97,35 +99,6 @@ class MenuDialog extends StatelessWidget {
         ),
       ]),
     );
-  }
-}
-
-class ChapterBox extends StatelessWidget {
-  final String num;
-  final PracticeStatus clearStatus;
-
-  const ChapterBox({super.key, required this.num, required this.clearStatus});
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-        child: InkWell(
-      onTap: () {
-        print("chapter $num : $clearStatus");
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 2.5),
-        decoration: BoxDecoration(
-            border: Border.all(width: 2),
-            shape: BoxShape.circle,
-            color: getColorForStatus(clearStatus)),
-        child: Center(
-            child: Text(
-          num,
-          style: getFontForStatus(clearStatus),
-        )),
-      ),
-    ));
   }
 }
 

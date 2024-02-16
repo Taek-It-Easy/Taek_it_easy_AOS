@@ -1,7 +1,6 @@
 // ignore_for_file: unused_field, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class AttendSection extends StatelessWidget {
   const AttendSection(
