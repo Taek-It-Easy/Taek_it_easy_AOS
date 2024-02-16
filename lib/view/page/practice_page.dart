@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taek_it_easy/designSystem/font_system.dart';
 import 'package:taek_it_easy/provider/main_provider.dart';
+import 'package:taek_it_easy/view/page/camera_page.dart';
 import 'package:taek_it_easy/view/widget/quit_button_widget.dart';
 import 'package:taek_it_easy/view/widget/video_button_widget.dart';
 import 'package:taek_it_easy/view/widget/video_title_widget.dart';
@@ -110,7 +111,13 @@ class PracticePage extends StatelessWidget {
                             label: 'Next',
                             icon: Icons.east,
                             color: const Color(0xFF8DB9A5),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CameraPage()));
+                            },
                           ),
                         ),
                       ],
