@@ -42,8 +42,10 @@ class MainProvider with ChangeNotifier {
   }
 
   Future<void> getContent() async {
-    getPoseList();
-    //getUserContent();
+    await getPoseList();
+    await getUserContent();
+    await setClearStatus();
+    notifyListeners();
   }
 
   //포즈 리스트 가져오기
@@ -62,19 +64,16 @@ class MainProvider with ChangeNotifier {
         return poseItems;
       }).result;
     }
-    setClearStatus();
   }
 
 //진행 상황 가져오기
   Future<void> getUserContent() async {
     final response = await http.get(
-      Uri.parse(
-          "${Constants.baseUrl}/app/users/contents/${Prefs.getInt("userIdx")}"),
+      Uri.parse("${Constants.baseUrl}/app/users/contents/1"),
       headers: Constants.headers,
     );
     if (response.statusCode >= 200 && response.statusCode < 400) {
       var result = utf8.decode(response.bodyBytes);
-      print("나오니 ? : $result");
       try {
         final body = Response.fromJson(
             jsonDecode(result), (json) => UserContent.fromJson(json));
@@ -99,7 +98,6 @@ class MainProvider with ChangeNotifier {
         _clearStatus.add(PracticeStatus.incomplete);
       }
     }
-    notifyListeners();
   }
 
   //포즈 달성 시 작동
