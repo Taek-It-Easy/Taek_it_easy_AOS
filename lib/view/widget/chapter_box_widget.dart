@@ -1,22 +1,27 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:taek_it_easy/data/practice_status.dart';
+import 'package:taek_it_easy/provider/main_provider.dart';
 import 'package:taek_it_easy/view/dialog/menu_dialog.dart';
 import 'package:taek_it_easy/view/page/practice_page.dart';
 
 class ChapterBox extends StatelessWidget {
-  final String num;
+  final int num;
   final PracticeStatus clearStatus;
 
   const ChapterBox({super.key, required this.num, required this.clearStatus});
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<MainProvider>(context, listen: false);
+
     return Expanded(
         child: InkWell(
       onTap: () {
-        print("chapter $num : $clearStatus");
+        print("chapter ${num + 1} : $clearStatus");
+        provider.setPoseIdx(num);
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const PracticePage()));
       },
@@ -28,7 +33,7 @@ class ChapterBox extends StatelessWidget {
             color: getColorForStatus(clearStatus)),
         child: Center(
             child: Text(
-          num,
+          (num + 1).toString(),
           style: getFontForStatus(clearStatus),
         )),
       ),
