@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:taek_it_easy/provider/main_provider.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoWidget extends StatefulWidget {
