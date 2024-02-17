@@ -13,8 +13,6 @@ class PracticePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<MainProvider>(context);
-
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -31,47 +29,50 @@ class PracticePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  margin: const EdgeInsets.only(top: 50),
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Color(0xFF8DB9A6), Colors.white],
+                    margin: const EdgeInsets.only(top: 50),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Color(0xFF8DB9A6), Colors.white],
+                      ),
+                      border:
+                          Border.all(color: const Color(0xFF436355), width: 2),
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x3F000000),
+                          blurRadius: 4,
+                          offset: Offset(1, 4),
+                          spreadRadius: 1,
+                        )
+                      ],
                     ),
-                    border:
-                        Border.all(color: const Color(0xFF436355), width: 2),
-                    borderRadius: BorderRadius.circular(50),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Color(0x3F000000),
-                        blurRadius: 4,
-                        offset: Offset(1, 4),
-                        spreadRadius: 1,
-                      )
-                    ],
-                  ),
-                  child: const Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16),
-                        child:
-                            TextTitleWidget(title1: "TAEGEUK", title2: "basic"),
-                      ),
-                      VideoWidget(
-                          videoUrl:
-                              "https://storage.googleapis.com/taek_it_easy_bucket/Taekwondo_1%2C2%2C3%EC%9E%A5_%EA%B8%B0%EB%B3%B8%EB%8F%99%EC%9E%91_%ED%8E%B8%EC%A7%91%EB%B3%B8/%EB%8F%99%EC%98%81%EC%83%81/%ED%83%9C%EA%B7%B91%EC%9E%A5_%EC%A4%80%EB%B9%84%EC%9E%90%EC%84%B8%20-%20Trim.MP4"),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 24),
-                        child: Center(
-                          child: Text(
-                            "Action 1",
-                            style: Fonts.videoSubText,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                    child: Consumer<MainProvider>(
+                      builder: (context, provider, child) {
+                        return Column(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              child: TextTitleWidget(
+                                  title1: "TAEGEUK", title2: "basic"),
+                            ),
+                            VideoWidget(
+                                videoUrl: provider.videoUrl,
+                                isPlaying: provider.isPlaying),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 24),
+                              child: Center(
+                                child: Text(
+                                  provider.videoTitle,
+                                  style: Fonts.videoSubText,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    )),
                 const SizedBox(
                   height: 16,
                 ),

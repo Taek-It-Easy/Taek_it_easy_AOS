@@ -56,9 +56,7 @@ class MenuDialog extends StatelessWidget {
                             for (int j = i;
                                 j < i + 3 && j < clearStatus.length;
                                 j++)
-                              ChapterBox(
-                                  num: (j + 1).toString(),
-                                  clearStatus: clearStatus[j]),
+                              ChapterBox(num: (j), clearStatus: clearStatus[j]),
                           ],
                         ),
                         const SizedBox(
