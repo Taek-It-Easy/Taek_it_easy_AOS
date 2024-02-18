@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_pose_detection/google_mlkit_pose_detection.dart';
+import 'package:provider/provider.dart';
+import 'package:taek_it_easy/constants.dart';
+import 'package:taek_it_easy/provider/main_provider.dart';
 import 'package:taek_it_easy/view/widget/camera_widget.dart';
 import 'package:taek_it_easy/view/widget/pose_painter_widget.dart';
 
@@ -13,6 +18,8 @@ class PoseDetectorView extends StatefulWidget {
 class _PoseDetectorViewState extends State<PoseDetectorView> {
   final PoseDetector _poseDetector = PoseDetector(
       options: PoseDetectorOptions(model: PoseDetectionModel.accurate));
+
+  late MainProvider provider;
 
   bool _canProcess = true;
   bool _isBusy = false;
@@ -30,6 +37,8 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<MainProvider>(context);
+
     return CameraView(
         customPaint: _customPaint,
         onImage: ((inputImage) {
@@ -43,11 +52,15 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
     _isBusy = true;
 
     List<Pose> poses = await _poseDetector.processImage(inputImage);
+    List<Pose> filteredPoses =
+        filterPosesByLandmarkType(poses, Constants.landmarkTypes);
+
+    provider.addPoseDetectList(filteredPoses);
 
     if (inputImage.metadata?.size != null &&
         inputImage.metadata?.rotation != null) {
-      final painter = PosePainter(
-          poses, inputImage.metadata!.size, inputImage.metadata!.rotation);
+      final painter = PosePainter(filteredPoses, inputImage.metadata!.size,
+          inputImage.metadata!.rotation);
       _customPaint = CustomPaint(
         painter: painter,
       );
@@ -58,5 +71,18 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
     if (mounted) {
       setState(() {});
     }
+  }
+
+  List<Pose> filterPosesByLandmarkType(
+      List<Pose> poseList, List<PoseLandmarkType> landmarkTypes) {
+    return poseList.map((pose) {
+      Map<PoseLandmarkType, PoseLandmark> filteredLandmarks = {};
+      pose.landmarks.forEach((type, landmark) {
+        if (landmarkTypes.contains(type)) {
+          filteredLandmarks[type] = landmark;
+        }
+      });
+      return Pose(landmarks: filteredLandmarks);
+    }).toList();
   }
 }

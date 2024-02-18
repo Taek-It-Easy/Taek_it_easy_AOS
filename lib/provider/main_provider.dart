@@ -1,6 +1,9 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:google_mlkit_pose_detection/google_mlkit_pose_detection.dart';
 import 'package:taek_it_easy/constants.dart';
 import 'package:taek_it_easy/data/pose_item.dart';
 import 'package:http/http.dart' as http;
@@ -166,5 +169,61 @@ class MainProvider with ChangeNotifier {
   void restartVideo() {
     _isPlaying = false;
     notifyListeners();
+  }
+
+//Pose Detector
+  final List<PoseListItem> _poseDetectList = []; //감지한 포즈의 총 리스트
+  List<PoseListItem> get poseDetectList => _poseDetectList;
+
+  int _pOrder = 0;
+  int get pOrder => _pOrder;
+
+  void clearPoseDetectList() {
+    _poseDetectList.clear();
+    _pOrder = 0;
+  }
+
+  void addPoseDetectList(List<Pose> poses) {
+    List<PoseData> _poseList = []; //각 시간 별 좌표값
+
+    for (var pose in poses) {
+      for (var landmark in pose.landmarks.values) {
+        _poseList.add(PoseData(
+            position: landmark.type.toString(),
+            reliability: landmark.likelihood,
+            x: landmark.x,
+            y: landmark.y,
+            z: landmark.z));
+      }
+    }
+
+    _poseDetectList.add(PoseListItem(
+        pOrder: pOrder, poseList: _poseList, time: DateTime.now().toString()));
+    _pOrder++;
+    if (_pOrder % 120 == 0) {
+      postCameraCosine();
+    }
+  }
+
+  Future<void> postCameraCosine() async {
+    print("여기는 오나?");
+    var string = CameraReq(poseIdx: currentPoseIdx, poseList: _poseDetectList);
+
+    var body = jsonEncode(string);
+
+    final response = await http.post(
+        Uri.parse("${Constants.baseUrl}/app/camera/cosine"),
+        headers: Constants.headers,
+        body: body);
+    print("여기는 오나?2");
+    var result = utf8.decode(response.bodyBytes);
+
+    print("?? $result");
+    if (response.statusCode >= 200 && response.statusCode < 400) {
+      var result = utf8.decode(response.bodyBytes);
+      try {} catch (e) {
+        print("에러 $e");
+      }
+    }
   }
 }

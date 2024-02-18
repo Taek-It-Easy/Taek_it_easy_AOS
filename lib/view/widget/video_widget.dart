@@ -37,7 +37,6 @@ class _VideoWidgetState extends State<VideoWidget> {
   @override
   void didUpdateWidget(covariant VideoWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print("너 몇 번 실행되니?");
     if (widget.videoUrl != oldWidget.videoUrl) {
       _controller =
           VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
