@@ -196,26 +196,30 @@ class MainProvider with ChangeNotifier {
             z: landmark.z));
       }
     }
-
-    _poseDetectList.add(PoseListItem(
-        pOrder: pOrder, poseList: _poseList, time: DateTime.now().toString()));
-    _pOrder++;
+    if (_poseList.isNotEmpty) {
+      if (_pOrder % 5 == 0) {
+        _poseDetectList.add(PoseListItem(
+            pOrder: _pOrder ~/ 5,
+            poseList: _poseList,
+            time: DateTime.now().toString()));
+      }
+      _pOrder++;
+    }
     if (_pOrder % 120 == 0) {
       postCameraCosine();
     }
   }
 
   Future<void> postCameraCosine() async {
-    print("여기는 오나?");
-    var string = CameraReq(poseIdx: currentPoseIdx, poseList: _poseDetectList);
+    var string =
+        CameraReq(poseIdx: 1, poseList: _poseDetectList);
 
     var body = jsonEncode(string);
-
+    print("테스트4 : ${body.toString()}");
     final response = await http.post(
         Uri.parse("${Constants.baseUrl}/app/camera/cosine"),
         headers: Constants.headers,
         body: body);
-    print("여기는 오나?2");
     var result = utf8.decode(response.bodyBytes);
 
     print("?? $result");
@@ -224,6 +228,8 @@ class MainProvider with ChangeNotifier {
       try {} catch (e) {
         print("에러 $e");
       }
+    } else {
+      print("${response.statusCode}");
     }
   }
 }

@@ -7,6 +7,7 @@ class Constants {
   };
 
   static const List<PoseLandmarkType> landmarkTypes = [
+    PoseLandmarkType.nose,
     PoseLandmarkType.leftEye,
     PoseLandmarkType.rightEye,
     PoseLandmarkType.leftEar,

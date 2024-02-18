@@ -54,7 +54,7 @@ class PoseListItem {
   Map<String, dynamic> toJson() {
     return {
       'p_order': pOrder,
-      'poseList': poseList.map((poseData) => poseData.toJson()).toList(),
+      'pose': poseList.map((poseData) => poseData.toJson()).toList(),
       'time': time,
     };
   }
