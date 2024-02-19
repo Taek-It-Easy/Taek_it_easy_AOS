@@ -20,10 +20,14 @@ class ChapterBox extends StatelessWidget {
     return Expanded(
         child: InkWell(
       onTap: () {
-        print("chapter ${num + 1} : $clearStatus");
-        provider.setPoseIdx(num);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const PracticePage()));
+        provider.setVideoUrl(num).then((value) {
+          print("테스트1: $value");
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      PracticePage(uri: value.uri, title: value.title)));
+        });
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 2.5),

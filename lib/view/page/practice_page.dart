@@ -9,7 +9,10 @@ import 'package:taek_it_easy/view/widget/video_title_widget.dart';
 import 'package:taek_it_easy/view/widget/video_widget.dart';
 
 class PracticePage extends StatelessWidget {
-  const PracticePage({super.key});
+  const PracticePage({super.key, required this.uri, required this.title});
+
+  final String uri;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +60,12 @@ class PracticePage extends StatelessWidget {
                                 title1: "TAEGEUK", title2: "basic"),
                           ),
                           VideoWidget(
-                              videoUrl: provider.videoUrl,
-                              isPlaying: provider.isPlaying),
+                              videoUrl: uri, isPlaying: provider.isPlaying),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 24),
                             child: Center(
                               child: Text(
-                                provider.videoTitle,
+                                title,
                                 style: Fonts.videoSubText,
                               ),
                             ),

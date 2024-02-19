@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:taek_it_easy/data/practice_status.dart';
 import 'package:taek_it_easy/data/response.dart';
 import 'package:taek_it_easy/data/user_content.dart';
+import 'package:taek_it_easy/data/video.dart';
 import 'package:taek_it_easy/prefs.dart';
 
 class MainProvider with ChangeNotifier {
@@ -38,7 +39,7 @@ class MainProvider with ChangeNotifier {
   final List<PracticeStatus> _clearStatus = [];
   List<PracticeStatus> get clearStatus => _clearStatus;
 
-  int _currentPoseIdx = 0;
+  final int _currentPoseIdx = 0;
   int get currentPoseIdx => _currentPoseIdx;
 
   void checkAttendDays() {
@@ -125,40 +126,21 @@ class MainProvider with ChangeNotifier {
     }
   }
 
-  //Pose 선택
-  Future<void> setPoseIdx(int poseIdx) async {
-    _currentPoseIdx = poseIdx;
-    setVideoUrl();
-  }
-
   //Video 관련
-  String _videoUrl = "";
   bool _isPlaying = false;
-  String _videoTitle = '';
 
-  String get videoUrl => _videoUrl;
   bool get isPlaying => _isPlaying;
-  String get videoTitle => _videoTitle;
 
-  Future setVideoUrl() async {
+  Future<VideoData> setVideoUrl(int num) async {
     final response = await http.get(
-      Uri.parse("${Constants.baseUrl}/app/video/$_currentPoseIdx"),
+      Uri.parse("${Constants.baseUrl}/app/video/$num"),
       headers: Constants.headers,
     );
-
-    if (response.statusCode >= 200 && response.statusCode < 400) {
-      var result = utf8.decode(response.bodyBytes);
-      try {
-        final body = Response.fromJson(
-            jsonDecode(result), (json) => PoseItem.fromJson(json));
-        _videoTitle = body.result.poseName;
-        _videoUrl = body.result.url ?? '';
-      } catch (e) {
-        //print(e);
-      }
-    }
-    _isPlaying = false;
-    notifyListeners();
+    print("테스트2 : $response");
+    var result = utf8.decode(response.bodyBytes);
+    final body = Response.fromJson(
+        jsonDecode(result), (json) => PoseItem.fromJson(json));
+    return VideoData(uri: body.result.url ?? '', title: body.result.poseName);
   }
 
   void playVideo() {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:taek_it_easy/view/page/main_page.dart';
 
 class QuitButton extends StatelessWidget {
   const QuitButton({super.key});
