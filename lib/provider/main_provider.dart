@@ -1,10 +1,13 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
+import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_pose_detection/google_mlkit_pose_detection.dart';
 import 'package:taek_it_easy/constants.dart';
+import 'package:taek_it_easy/data/camera_result.dart';
 import 'package:taek_it_easy/data/pose_item.dart';
 import 'package:http/http.dart' as http;
 import 'package:taek_it_easy/data/practice_status.dart';
@@ -107,7 +110,7 @@ class MainProvider with ChangeNotifier {
     }
   }
 
-  //포즈 달성 시 작동
+  //포즈 달성 시 작동 (미구현)
   Future<void> patchPoseAchieve() async {
     final response = await http.get(
       Uri.parse(
@@ -160,6 +163,9 @@ class MainProvider with ChangeNotifier {
   int _pOrder = 0;
   int get pOrder => _pOrder;
 
+  late List<CameraResultItem> _cameraResult;
+  List<CameraResultItem> get cameraResult => _cameraResult;
+
   void clearPoseDetectList() {
     _poseDetectList.clear();
     _pOrder = 0;
@@ -179,6 +185,7 @@ class MainProvider with ChangeNotifier {
       }
     }
     if (_poseList.isNotEmpty) {
+      startTimer();
       if (_pOrder % 5 == 0) {
         _poseDetectList.add(PoseListItem(
             pOrder: _pOrder ~/ 5,
@@ -186,9 +193,6 @@ class MainProvider with ChangeNotifier {
             time: DateTime.now().toString()));
       }
       _pOrder++;
-    }
-    if (_pOrder % 120 == 0) {
-      postCameraCosine();
     }
   }
 
@@ -200,12 +204,67 @@ class MainProvider with ChangeNotifier {
         Uri.parse("${Constants.baseUrl}/app/camera/cosine"),
         headers: Constants.headers,
         body: body);
-    var result = utf8.decode(response.bodyBytes);
 
     if (response.statusCode >= 200 && response.statusCode < 400) {
       var result = utf8.decode(response.bodyBytes);
+      print('Test2: $result');
+      final body = Response.fromJson(
+          jsonDecode(result), (json) => CameraResult.fromJson(json));
+
+      CameraResult cameraR = body.result;
+      _cameraResult = cameraR.cameraResult;
     } else {
-      print("${response.statusCode}");
+      //print("${response.statusCode}");
     }
+  }
+
+  //타이머 관련 (영상 녹화 시간 관련)
+  int _seconds = 5;
+  int get seconds => _seconds;
+
+  Timer? _timer;
+  bool _isTimerRunning = false;
+  bool get isTimerRunning => _isTimerRunning;
+
+  bool _isDetectRunning = true;
+  bool get isDetectRunning => _isDetectRunning;
+
+  void setTime(int videoTime) {
+    _seconds = (videoTime * 1.5).round();
+  }
+
+  void startTimer() {
+    if (!_isTimerRunning) {
+      _isTimerRunning = true;
+
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        if (_seconds > 0) {
+          _seconds--;
+        } else {
+          // 타이머가 0에 도달하면 타이머 정지
+          stopTimer();
+        }
+      });
+    }
+  }
+
+  void stopTimer() {
+    stopDetect();
+    _timer?.cancel();
+    _isTimerRunning = false;
+    notifyListeners();
+  }
+
+  void stopDetect() {
+    _isDetectRunning = false;
+  }
+
+  void startDetect() {
+    _isDetectRunning = true;
+    notifyListeners();
+  }
+
+  Future<void> submit() async {
+    await postCameraCosine();
   }
 }

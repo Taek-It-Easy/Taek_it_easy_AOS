@@ -1,22 +1,37 @@
-class CameraResult {
-  final int cdavg;
-  final int cdmax;
+class CameraResultItem {
+  final double cdavg;
+  final double cdmax;
   final int poder;
   final int poseSeq;
 
-  CameraResult({
+  CameraResultItem({
     required this.cdavg,
     required this.cdmax,
     required this.poder,
     required this.poseSeq,
   });
 
-  factory CameraResult.fromJson(Map<String, dynamic> json) {
-    return CameraResult(
-      cdavg: json['cdavg'],
-      cdmax: json['cdmax'],
+  factory CameraResultItem.fromJson(Map<String, dynamic> json) {
+    return CameraResultItem(
       poder: json['poder'],
       poseSeq: json['poseSeq'],
+      cdavg: json['cdavg'],
+      cdmax: json['cdmax'],
     );
+  }
+}
+
+class CameraResult {
+  final List<CameraResultItem> cameraResult;
+
+  CameraResult({required this.cameraResult});
+
+  factory CameraResult.fromJson(Map<String, dynamic> json) {
+    final List<dynamic> cameraResultJson = json['cameraResult'];
+    List<CameraResultItem> cameraResultList = cameraResultJson
+        .map((result) => CameraResultItem.fromJson(result))
+        .toList();
+
+    return CameraResult(cameraResult: cameraResultList);
   }
 }

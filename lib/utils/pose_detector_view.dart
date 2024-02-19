@@ -29,6 +29,11 @@ class _PoseDetectorViewState extends State<PoseDetectorView> {
   Map<String, double> inputMap = {};
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void dispose() async {
     _canProcess = false; //화면 종료 시 진행 불가 판정
     _poseDetector.close(); //디텍터 종료

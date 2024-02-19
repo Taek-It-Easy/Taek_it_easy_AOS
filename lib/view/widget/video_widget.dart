@@ -18,7 +18,6 @@ class _VideoWidgetState extends State<VideoWidget> {
 
   @override
   void initState() {
-    print("videoUrl : ${widget.videoUrl}");
     _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
     _initailizedController = _controller.initialize();
     if (widget.isPlaying) {
@@ -57,8 +56,6 @@ class _VideoWidgetState extends State<VideoWidget> {
           // 로딩바 표시
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          // 에러가 발생한 경우 에러 메시지 표시
-          print("무슨 에러? :${snapshot.error}");
           return const Center(child: Text('로드 중 에러가 발생했습니다.'));
         } else {
           // 비디오 플레이어 표시
