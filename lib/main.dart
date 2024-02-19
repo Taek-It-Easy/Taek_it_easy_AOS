@@ -9,7 +9,6 @@ import 'package:taek_it_easy/view/page/main_page.dart';
 List<CameraDescription> cameras = [];
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   cameras = await availableCameras();
   await Prefs.init();
   runApp(const MainApp());
@@ -25,6 +24,7 @@ class MainApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => MainProvider()),
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           home: FutureBuilder<bool>(
             future: checkUserLoggedIn(),
             builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {

@@ -211,23 +211,17 @@ class MainProvider with ChangeNotifier {
   }
 
   Future<void> postCameraCosine() async {
-    var string =
-        CameraReq(poseIdx: 1, poseList: _poseDetectList);
+    var string = CameraReq(poseIdx: 1, poseList: _poseDetectList);
 
     var body = jsonEncode(string);
-    print("테스트4 : ${body.toString()}");
     final response = await http.post(
         Uri.parse("${Constants.baseUrl}/app/camera/cosine"),
         headers: Constants.headers,
         body: body);
     var result = utf8.decode(response.bodyBytes);
 
-    print("?? $result");
     if (response.statusCode >= 200 && response.statusCode < 400) {
       var result = utf8.decode(response.bodyBytes);
-      try {} catch (e) {
-        print("에러 $e");
-      }
     } else {
       print("${response.statusCode}");
     }

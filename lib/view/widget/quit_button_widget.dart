@@ -8,8 +8,7 @@ class QuitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MainPage()));
+        Navigator.of(context).popUntil((route) => route.isFirst);
       },
       child: Container(
           height: 60,
