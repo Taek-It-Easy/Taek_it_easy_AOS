@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taek_it_easy/designSystem/color_system.dart';
 import 'package:taek_it_easy/designSystem/font_system.dart';
+import 'package:taek_it_easy/provider/attend_provider.dart';
 import 'package:taek_it_easy/provider/main_provider.dart';
 import 'package:taek_it_easy/view/widget/badge_widget.dart';
 import 'package:taek_it_easy/view/widget/practice_menu_widget2.dart';
@@ -20,6 +21,9 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     provider = Provider.of<MainProvider>(context, listen: false);
+
+    final attend = Provider.of<AttendProvider>(context, listen: false);
+    attend.attend();
 
     final dayName = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
     provider.checkAttendDays();
@@ -65,7 +69,7 @@ class MainPage extends StatelessWidget {
                                   'You learned hard for ',
                                   style: Fonts.mainSubTitle,
                                 ),
-                                Text(provider.attendDays.toString(),
+                                Text(attend.continueDate.toString(),
                                     style: Fonts.mainSubTitleNum),
                                 const Text(
                                   ' days',
@@ -80,7 +84,7 @@ class MainPage extends StatelessWidget {
                   )),
               AttendSection(
                 dayName: dayName,
-                attendStatus: provider.attendWeek,
+                attendStatus: attend.attendList,
               ),
               BadgeWidget(badgeAchieve: provider.badgeAchieve),
             ],

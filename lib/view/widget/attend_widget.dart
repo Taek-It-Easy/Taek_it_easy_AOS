@@ -7,7 +7,7 @@ class AttendSection extends StatelessWidget {
       {super.key, required this.dayName, required this.attendStatus});
 
   final List<String> dayName;
-  final List<bool> attendStatus;
+  final List<bool?> attendStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class AttendSection extends StatelessWidget {
 
 class AttendBox extends StatelessWidget {
   final String dayName;
-  final bool attendStatus;
+  final bool? attendStatus;
 
   const AttendBox(
       {super.key, required this.dayName, required this.attendStatus});
@@ -59,13 +59,15 @@ class AttendBox extends StatelessWidget {
         height: 35,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: attendStatus ? Colors.transparent : const Color(0xFFD6D6D6),
+          color: attendStatus == true
+              ? Colors.transparent
+              : const Color(0xFFD6D6D6),
         ),
         child: Center(
           child: Stack(
             alignment: Alignment.center,
             children: [
-              if (attendStatus)
+              if (attendStatus == true)
                 Image.asset(
                   "assets/images/attend.png",
                   width: 60.0,

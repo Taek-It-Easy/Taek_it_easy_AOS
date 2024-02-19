@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taek_it_easy/prefs.dart';
+import 'package:taek_it_easy/provider/attend_provider.dart';
 import 'package:taek_it_easy/provider/main_provider.dart';
 import 'package:taek_it_easy/view/page/login_page.dart';
 import 'package:taek_it_easy/view/page/main_page.dart';
@@ -22,6 +23,7 @@ class MainApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => MainProvider()),
+          ChangeNotifierProvider(create: (_) => AttendProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
