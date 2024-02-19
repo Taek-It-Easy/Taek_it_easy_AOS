@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taek_it_easy/provider/main_provider.dart';
 import 'package:taek_it_easy/utils/pose_detector_view.dart';
+import 'package:taek_it_easy/view/page/feedback_page.dart';
 import 'package:taek_it_easy/view/widget/quit_button_widget.dart';
 
 class CameraPage extends StatelessWidget {
@@ -28,7 +29,12 @@ class CameraPage extends StatelessWidget {
                 ElevatedButton(
                   child: const Text('제출하기'),
                   onPressed: () {
-                    provider.submit().then((value) => print('제출'));
+                    provider.submit().then((value) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FeedbackPage()));
+                    });
                   },
                 ),
               ],
