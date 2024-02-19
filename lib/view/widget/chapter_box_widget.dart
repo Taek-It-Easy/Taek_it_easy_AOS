@@ -20,8 +20,8 @@ class ChapterBox extends StatelessWidget {
     return Expanded(
         child: InkWell(
       onTap: () {
-        provider.setVideoUrl(num).then((value) {
-          print("테스트1: $value");
+        provider.setVideoUrl(num + 1).then((value) {
+          provider.startDetect();
           Navigator.push(
               context,
               MaterialPageRoute(

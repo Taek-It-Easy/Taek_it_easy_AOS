@@ -252,15 +252,16 @@ class MainProvider with ChangeNotifier {
     stopDetect();
     _timer?.cancel();
     _isTimerRunning = false;
-    notifyListeners();
   }
 
   void stopDetect() {
     _isDetectRunning = false;
+    notifyListeners();
   }
 
   void startDetect() {
     _isDetectRunning = true;
+    setTime(3); //임시 시간
     notifyListeners();
   }
 
