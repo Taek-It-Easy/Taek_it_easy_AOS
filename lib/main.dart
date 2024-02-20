@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taek_it_easy/prefs.dart';
 import 'package:taek_it_easy/provider/attend_provider.dart';
+import 'package:taek_it_easy/provider/badge_provider.dart';
 import 'package:taek_it_easy/provider/main_provider.dart';
 import 'package:taek_it_easy/view/page/login_page.dart';
 import 'package:taek_it_easy/view/page/main_page.dart';
@@ -24,6 +25,7 @@ class MainApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) => MainProvider()),
           ChangeNotifierProvider(create: (_) => AttendProvider()),
+          ChangeNotifierProvider(create: (_) => BadgeProvider())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

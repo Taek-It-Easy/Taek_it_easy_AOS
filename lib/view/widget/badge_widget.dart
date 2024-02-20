@@ -1,7 +1,10 @@
 // ignore_for_file: unused_field, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:taek_it_easy/provider/badge_provider.dart';
+import 'package:taek_it_easy/view/page/badge_collection_page.dart';
 
 class BadgeWidget extends StatelessWidget {
   final int badgeAchieve;
@@ -10,14 +13,17 @@ class BadgeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<BadgeProvider>(context, listen: false);
+
     return Positioned(
       right: 0,
       child: GestureDetector(
         onTap: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => const GetBadgePage()),
-          // );
+          provider.init().then((value) => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const BadgeCollectionPage()),
+              ));
         },
         child: Container(
           margin: const EdgeInsets.all(16),
