@@ -6,9 +6,9 @@ import 'package:taek_it_easy/view/widget/custom_button_widget.dart';
 import 'package:taek_it_easy/view/widget/semicircle_pie_chart_widget.dart';
 
 class FeedbackScorePage extends StatelessWidget {
-  FeedbackScorePage({super.key, required this.page});
+  const FeedbackScorePage({super.key, required this.page});
 
-  int page = 0;
+  final int page;
 
   @override
   Widget build(BuildContext context) {
@@ -68,27 +68,6 @@ class FeedbackScorePage extends StatelessWidget {
         const SizedBox(
           height: 40,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Row(
-            children: [
-              const ClearIndicator(isclear: true, number: 1),
-              const SizedBox(width: 10),
-              const ClearIndicator(isclear: false, number: 2),
-              const SizedBox(width: 10),
-              const ClearIndicator(isclear: false, number: 3),
-              const SizedBox(width: 10),
-              Expanded(
-                child: CustomButton(
-                  label: 'Next',
-                  icon: Icons.east,
-                  color: const Color(0xFF8DB9A5),
-                  onPressed: () {},
-                ),
-              ),
-            ],
-          ),
-        )
       ],
     );
   }
