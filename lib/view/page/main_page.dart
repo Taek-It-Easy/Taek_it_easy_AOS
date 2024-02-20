@@ -23,7 +23,7 @@ class MainPage extends StatelessWidget {
     provider = Provider.of<MainProvider>(context, listen: false);
 
     final attend = Provider.of<AttendProvider>(context, listen: false);
-    attend.attend();
+    attend.init();
 
     final dayName = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 

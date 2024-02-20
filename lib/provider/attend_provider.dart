@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:taek_it_easy/prefs.dart';
 
 class AttendProvider with ChangeNotifier {
-  List<bool?> _attendList = [false, false, false, false, false, false, false];
-  List<bool?> get attendList => _attendList;
+  List<bool> _attendList = [false, false, false, false, false, false, false];
+  List<bool> get attendList => _attendList;
 
   String? _recentDate;
   String? get recentDate => _recentDate;
@@ -21,20 +21,25 @@ class AttendProvider with ChangeNotifier {
   }
 
   Future<void> attend() async {
-    DateTime now = DateTime.now(); //오늘 날짜
+    DateTime now = DateTime.now(); //오늘 날
+
     if (_recentDate != null) {
       DateTime dateTime =
           DateFormat('yyyy-MM-dd').parse(_recentDate!); //가장 최근 출석일
       Duration diff = now.difference(dateTime);
 
-      if (diff.inDays < 2) {
+      if (diff.inDays == 1) {
         //최근 출석일 이후 하루만 지났을 때
         _continueDate++;
+        final diffWeek = now.weekday - dateTime.weekday;
+        if (diffWeek <= 0) {
+          clearWeek();
+        }
       } else if (diff.inDays >= 2 && diff.inDays < 7) {
         //최근 출석일 이후 2일 이상 7일 미만 지났을 때
         _continueDate = 1;
-        final diffWeek = now.day - dateTime.day;
-        if (diffWeek < 0) {
+        final diffWeek = now.weekday - dateTime.weekday;
+        if (diffWeek <= 0) {
           clearWeek();
         }
       } else if (diff.inDays >= 7) {
@@ -71,9 +76,10 @@ class AttendProvider with ChangeNotifier {
     String? stringList = Prefs.getString("WeekAttend");
 
     if (stringList != null) {
-      _attendList = stringList.split('_').map((e) {
-        e == 'null' ? null : e == 'true';
+      List<bool> boolList = stringList.split('_').map((e) {
+        return e == 'true';
       }).toList();
+      _attendList = boolList;
     } else {
       _attendList = [false, false, false, false, false, false, false];
     }
