@@ -2,8 +2,6 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_pose_detection/google_mlkit_pose_detection.dart';
 import 'package:taek_it_easy/constants.dart';
@@ -17,14 +15,6 @@ import 'package:taek_it_easy/data/video.dart';
 import 'package:taek_it_easy/prefs.dart';
 
 class MainProvider with ChangeNotifier {
-  //연속 출석 일자
-  int _attendDays = 1;
-  int get attendDays => _attendDays;
-
-  //주간 출석
-  final List<bool> _attendWeek = [true, true, true, false, false, false, false];
-  List<bool> get attendWeek => _attendWeek;
-
   //Badge List
   final int _badgeAchieve = 3;
   int get badgeAchieve => _badgeAchieve;
@@ -42,20 +32,18 @@ class MainProvider with ChangeNotifier {
   final List<PracticeStatus> _clearStatus = [];
   List<PracticeStatus> get clearStatus => _clearStatus;
 
-  final int _currentPoseIdx = 0;
+  int _currentPoseIdx = 0;
   int get currentPoseIdx => _currentPoseIdx;
-
-  void checkAttendDays() {
-    //연속 출석 체크 로직
-    _attendDays =
-        _attendWeek.where((element) => element == true).length.toInt();
-  }
 
   Future<void> getContent() async {
     await getPoseList();
     await getUserContent();
     await setClearStatus();
     notifyListeners();
+  }
+
+  void setCurrentPoseIdx(int idx) {
+    _currentPoseIdx = idx;
   }
 
   //포즈 리스트 가져오기
@@ -79,19 +67,22 @@ class MainProvider with ChangeNotifier {
 //진행 상황 가져오기
   Future<void> getUserContent() async {
     final response = await http.get(
-      Uri.parse("${Constants.baseUrl}/app/users/contents/1"),
+      Uri.parse(
+          "${Constants.baseUrl}/app/users/contents/${Prefs.getInt("userIdx")}"),
       headers: Constants.headers,
     );
     if (response.statusCode >= 200 && response.statusCode < 400) {
       var result = utf8.decode(response.bodyBytes);
+      print("테스트2 : 정보가져오기 $result");
       try {
         final body = Response.fromJson(
             jsonDecode(result), (json) => UserContent.fromJson(json));
 
         _userPoseIdx = body.result.poseIdx;
         _userPoomsaeIdx = body.result.poomsaeIdx;
+        print("테스트2 : $_userPoseIdx");
       } catch (e) {
-        print(e);
+        //print(e);
       }
     }
   }
@@ -110,22 +101,24 @@ class MainProvider with ChangeNotifier {
     }
   }
 
-  //포즈 달성 시 작동 (미구현)
+  //포즈 달성 시 작동
   Future<void> patchPoseAchieve() async {
-    final response = await http.get(
+    final response = await http.patch(
       Uri.parse(
-          "${Constants.baseUrl}/app/users/poses/${Prefs.getInt("userIdx")}/1"),
+          "${Constants.baseUrl}/app/users/pose/${Prefs.getInt("userIdx")}/$_currentPoseIdx"),
       headers: Constants.headers,
     );
+    var result = utf8.decode(response.bodyBytes);
+    print("테스트2 : $result");
     if (response.statusCode >= 200 && response.statusCode < 400) {
-      var result = utf8.decode(response.bodyBytes);
-      _poseList = Response.fromJson(jsonDecode(result), (data) {
-        List<PoseItem> poseItems = [];
-        for (var item in data) {
-          poseItems.add(PoseItem.fromJson(item));
-        }
-        return poseItems;
-      }).result;
+      //var result = utf8.decode(response.bodyBytes);
+      // _poseList = Response.fromJson(jsonDecode(result), (data) {
+      //   List<PoseItem> poseItems = [];
+      //   for (var item in data) {
+      //     poseItems.add(PoseItem.fromJson(item));
+      //   }
+      //   return poseItems;
+      // }).result;
     }
   }
 
@@ -139,7 +132,6 @@ class MainProvider with ChangeNotifier {
       Uri.parse("${Constants.baseUrl}/app/video/$num"),
       headers: Constants.headers,
     );
-    print("테스트2 : $response");
     var result = utf8.decode(response.bodyBytes);
     final body = Response.fromJson(
         jsonDecode(result), (json) => PoseItem.fromJson(json));
@@ -207,7 +199,6 @@ class MainProvider with ChangeNotifier {
 
     if (response.statusCode >= 200 && response.statusCode < 400) {
       var result = utf8.decode(response.bodyBytes);
-      print('Test2: $result');
       final body = Response.fromJson(
           jsonDecode(result), (json) => CameraResult.fromJson(json));
 
@@ -267,5 +258,10 @@ class MainProvider with ChangeNotifier {
 
   Future<void> submit() async {
     await postCameraCosine();
+    await patchPoseAchieve();
+    await getUserContent();
+    // if (_cameraResult[0].cdavg > 0.8) {
+    //   await patchPoseAchieve();
+    // }
   }
 }

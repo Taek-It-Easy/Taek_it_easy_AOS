@@ -47,7 +47,7 @@ class MainApp extends StatelessWidget {
   // 휴대폰에 유저 정보가 있으면 true
   Future<bool> checkUserLoggedIn() async {
     int? userIdx = Prefs.getInt('userIdx');
-    print('userIdx : $userIdx');
+    //print('userIdx : $userIdx');
     return (userIdx != null);
   }
 }

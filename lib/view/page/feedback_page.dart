@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:taek_it_easy/provider/main_provider.dart';
 import 'package:taek_it_easy/view/widget/clear_indicator_widget.dart';
 import 'package:taek_it_easy/view/widget/custom_button_widget.dart';
 import 'package:taek_it_easy/view/widget/quit_button_widget.dart';
@@ -17,7 +15,6 @@ class FeedbackPage extends StatefulWidget {
 class _FeedbackPageState extends State<FeedbackPage> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<MainProvider>(context);
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

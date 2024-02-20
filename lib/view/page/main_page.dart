@@ -26,7 +26,6 @@ class MainPage extends StatelessWidget {
     attend.attend();
 
     final dayName = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-    provider.checkAttendDays();
 
     return Scaffold(
         body: SafeArea(

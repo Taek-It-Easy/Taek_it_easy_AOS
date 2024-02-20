@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taek_it_easy/provider/main_provider.dart';
-import 'package:taek_it_easy/view/widget/clear_indicator_widget.dart';
-import 'package:taek_it_easy/view/widget/custom_button_widget.dart';
 import 'package:taek_it_easy/view/widget/semicircle_pie_chart_widget.dart';
 
 class FeedbackScorePage extends StatelessWidget {

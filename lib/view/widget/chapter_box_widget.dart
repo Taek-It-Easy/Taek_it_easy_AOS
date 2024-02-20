@@ -22,6 +22,7 @@ class ChapterBox extends StatelessWidget {
       onTap: () {
         provider.setVideoUrl(num + 1).then((value) {
           provider.startDetect();
+          provider.setCurrentPoseIdx(num + 1);
           Navigator.push(
               context,
               MaterialPageRoute(
