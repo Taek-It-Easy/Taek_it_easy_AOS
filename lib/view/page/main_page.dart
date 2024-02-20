@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:taek_it_easy/designSystem/color_system.dart';
 import 'package:taek_it_easy/designSystem/font_system.dart';
 import 'package:taek_it_easy/provider/attend_provider.dart';
+import 'package:taek_it_easy/provider/badge_provider.dart';
 import 'package:taek_it_easy/provider/main_provider.dart';
 import 'package:taek_it_easy/view/widget/badge_widget.dart';
 import 'package:taek_it_easy/view/widget/practice_menu_widget2.dart';
@@ -85,7 +86,7 @@ class MainPage extends StatelessWidget {
                 dayName: dayName,
                 attendStatus: attend.attendList,
               ),
-              BadgeWidget(badgeAchieve: provider.badgeAchieve),
+              const BadgeWidget(),
             ],
           ),
           const Expanded(

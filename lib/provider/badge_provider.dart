@@ -11,7 +11,7 @@ class BadgeProvider with ChangeNotifier {
   final List<bool> _userBadgeList = [];
   List<bool> get userBadgeList => _userBadgeList;
 
-  List<BadgeItem> _badgeList = [];
+  List<BadgeItem> _badgeList = [BadgeItem(badgeIdx: 1, content: "")];
   List<BadgeItem> get badgeList => _badgeList;
 
   Future<void> init() async {
@@ -79,4 +79,6 @@ class BadgeProvider with ChangeNotifier {
         body: body);
     print("테스트 : ${utf8.decode(response.bodyBytes)}");
   }
+
+  void checkBadgePractice() {}
 }

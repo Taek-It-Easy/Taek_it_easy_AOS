@@ -210,7 +210,7 @@ class MainProvider with ChangeNotifier {
   }
 
   //타이머 관련 (영상 녹화 시간 관련)
-  int _seconds = 5;
+  int _seconds = 7;
   int get seconds => _seconds;
 
   Timer? _timer;
@@ -252,7 +252,7 @@ class MainProvider with ChangeNotifier {
 
   void startDetect() {
     _isDetectRunning = true;
-    setTime(3); //임시 시간
+    setTime(7); //임시 시간
     notifyListeners();
   }
 

@@ -7,9 +7,7 @@ import 'package:taek_it_easy/provider/badge_provider.dart';
 import 'package:taek_it_easy/view/page/badge_collection_page.dart';
 
 class BadgeWidget extends StatelessWidget {
-  final int badgeAchieve;
-
-  const BadgeWidget({super.key, required this.badgeAchieve});
+  const BadgeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +45,9 @@ class BadgeWidget extends StatelessWidget {
                 child: Image.asset('assets/images/medal.png'),
               ),
               CircularStepProgressIndicator(
-                totalSteps: 9,
-                currentStep: badgeAchieve,
+                totalSteps: provider.badgeList.length,
+                currentStep:
+                    provider.userBadgeList.where((element) => true).length,
                 stepSize: 5,
                 selectedColor: const Color(0xFF618273),
                 unselectedColor: Colors.transparent,

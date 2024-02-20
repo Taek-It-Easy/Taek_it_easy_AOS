@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taek_it_easy/view/page/badge_achieve_page.dart';
 import 'package:taek_it_easy/view/widget/clear_indicator_widget.dart';
 import 'package:taek_it_easy/view/widget/custom_button_widget.dart';
 import 'package:taek_it_easy/view/widget/quit_button_widget.dart';
@@ -44,7 +45,13 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       label: 'Next',
                       icon: Icons.east,
                       color: const Color(0xFF8DB9A5),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const BadgeAchievePage()));
+                      },
                     ),
                   ),
                 ],
