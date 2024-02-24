@@ -30,6 +30,8 @@ class CameraReq {
     return {
       'poseIdx': poseIdx,
       'poseList': poseList.map((poseData) => poseData.toJson()).toList(),
+      'scaleX': scaleX,
+      'scaleY': scaleY
     };
   }
 }

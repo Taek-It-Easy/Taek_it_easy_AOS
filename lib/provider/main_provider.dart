@@ -204,9 +204,9 @@ class MainProvider with ChangeNotifier {
         Uri.parse("${Constants.baseUrl}/app/camera/cosine"),
         headers: Constants.headers,
         body: body);
-
     if (response.statusCode >= 200 && response.statusCode < 400) {
       var result = utf8.decode(response.bodyBytes);
+
       final body = Response.fromJson(
           jsonDecode(result), (json) => CameraResult.fromJson(json));
 

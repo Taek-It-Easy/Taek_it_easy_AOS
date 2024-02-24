@@ -68,8 +68,8 @@ class _CameraWidgetState extends State<CameraView> {
     setState(() => _changingCameraLens = true);
     _cameraIndex = (_cameraIndex + 1) % cameras.length;
 
-    // await _stopLiveFeed();
-    // await _startLiveFeed();
+    await stopLiveFeed();
+    await startLiveFeed();
     setState(() => _changingCameraLens = false);
   }
 
@@ -86,6 +86,7 @@ class _CameraWidgetState extends State<CameraView> {
             child: GestureDetector(
               onTap: () {
                 _switchLiveCamera();
+                print("터치");
               },
               child: const Icon(
                 Icons.screen_rotation_outlined,
@@ -176,7 +177,6 @@ class _CameraWidgetState extends State<CameraView> {
         rotation: imageRotation,
         format: inputImageFormat,
         bytesPerRow: planeData.first);
-    print("사이지 측정: ${inputImageData.size}");
     final inputImage =
         InputImage.fromBytes(bytes: bytes, metadata: inputImageData);
 
