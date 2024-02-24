@@ -1,15 +1,18 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_mlkit_commons/google_mlkit_commons.dart';
+import 'package:provider/provider.dart';
 import 'package:taek_it_easy/main.dart';
+import 'package:taek_it_easy/provider/main_provider.dart';
 
 class CameraView extends StatefulWidget {
   const CameraView(
       {super.key,
       required this.customPaint,
       required this.onImage,
-      this.initialDirection = CameraLensDirection.back});
+      this.initialDirection = CameraLensDirection.front});
 
   final CustomPaint? customPaint;
   final Function(InputImage inputImage) onImage;
@@ -20,9 +23,10 @@ class CameraView extends StatefulWidget {
 }
 
 class _CameraWidgetState extends State<CameraView> {
+  late MainProvider provider;
   CameraController? _controller;
   int _cameraIndex = -1;
-  final bool _changingCameraLens = false; //방향 전환
+  bool _changingCameraLens = false; //방향 전환
 
   @override
   void initState() {
@@ -60,20 +64,36 @@ class _CameraWidgetState extends State<CameraView> {
   }
 
 //렌즈 방향 전환
-  // Future _switchLiveCamera() async {
-  //   setState(() => _changingCameraLens = true);
-  //   _cameraIndex = (_cameraIndex + 1) % cameras.length;
+  Future _switchLiveCamera() async {
+    setState(() => _changingCameraLens = true);
+    _cameraIndex = (_cameraIndex + 1) % cameras.length;
 
-  //   // await _stopLiveFeed();
-  //   // await _startLiveFeed();
-  //   setState(() => _changingCameraLens = false);
-  // }
+    // await _stopLiveFeed();
+    // await _startLiveFeed();
+    setState(() => _changingCameraLens = false);
+  }
 
   @override
   Widget build(BuildContext context) {
+    provider = Provider.of<MainProvider>(context, listen: false);
     return Scaffold(
-      body: liveFeedBody(),
-    );
+        body: Stack(
+      children: [
+        liveFeedBody(),
+        Positioned(
+            top: 24,
+            right: 24,
+            child: GestureDetector(
+              onTap: () {
+                _switchLiveCamera();
+              },
+              child: const Icon(
+                Icons.screen_rotation_outlined,
+                size: 24,
+              ),
+            ))
+      ],
+    ));
   }
 
   Widget liveFeedBody() {
@@ -117,6 +137,7 @@ class _CameraWidgetState extends State<CameraView> {
       }
 
       _controller?.startImageStream((image) async {
+        provider.videoSize(image.height, image.width);
         await processCameraImage(image);
       });
     });
@@ -155,7 +176,7 @@ class _CameraWidgetState extends State<CameraView> {
         rotation: imageRotation,
         format: inputImageFormat,
         bytesPerRow: planeData.first);
-
+    print("사이지 측정: ${inputImageData.size}");
     final inputImage =
         InputImage.fromBytes(bytes: bytes, metadata: inputImageData);
 

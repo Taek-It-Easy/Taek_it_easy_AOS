@@ -16,9 +16,15 @@ class PoseItem {
 
 class CameraReq {
   final int poseIdx;
+  final int scaleX;
+  final int scaleY;
   final List<PoseListItem> poseList;
 
-  CameraReq({required this.poseIdx, required this.poseList});
+  CameraReq(
+      {required this.poseIdx,
+      required this.scaleX,
+      required this.scaleY,
+      required this.poseList});
 
   Map<String, dynamic> toJson() {
     return {

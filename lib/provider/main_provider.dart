@@ -15,10 +15,6 @@ import 'package:taek_it_easy/data/video.dart';
 import 'package:taek_it_easy/prefs.dart';
 
 class MainProvider with ChangeNotifier {
-  //Badge List
-  final int _badgeAchieve = 3;
-  int get badgeAchieve => _badgeAchieve;
-
   //동작 연습 (동작 리스트, 동작 달성 인덱스)
   int _userPoseIdx = 3;
   int get userPoseIdx => _userPoseIdx; //유저의 진행 상황(기본 동작)
@@ -34,6 +30,9 @@ class MainProvider with ChangeNotifier {
 
   int _currentPoseIdx = 0;
   int get currentPoseIdx => _currentPoseIdx;
+
+  int _imageHeight = 0;
+  int _imageWidth = 0;
 
   Future<void> getContent() async {
     await getPoseList();
@@ -148,6 +147,11 @@ class MainProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void videoSize(int height, int width) {
+    _imageHeight = height;
+    _imageWidth = width;
+  }
+
 //Pose Detector
   final List<PoseListItem> _poseDetectList = []; //감지한 포즈의 총 리스트
   List<PoseListItem> get poseDetectList => _poseDetectList;
@@ -189,7 +193,11 @@ class MainProvider with ChangeNotifier {
   }
 
   Future<void> postCameraCosine() async {
-    var string = CameraReq(poseIdx: 1, poseList: _poseDetectList);
+    var string = CameraReq(
+        poseIdx: _currentPoseIdx,
+        scaleX: _imageWidth,
+        scaleY: _imageHeight,
+        poseList: _poseDetectList);
 
     var body = jsonEncode(string);
     final response = await http.post(
